@@ -1,30 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
+import { TabsHeader } from '../Navigation/Header';
 
 export default function TutorialPage() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome to the Tutorial</Text>
-      <Text style={styles.body}>
-        Here's a quick guide on how to use the Glukoze app. You can add your own content here.
-      </Text>
+    <View style={{ flex: 1 }}>
+      <TabsHeader routeName="Tutorial" />
+      <View style={{ flex: 1, padding: 20 }}>
+        <Text>Welcome to the Tutorial!</Text>
+        {/* Your tutorial content here */}
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 15,
-  },
-  body: {
-    fontSize: 16,
-    lineHeight: 22,
-  },
-});
