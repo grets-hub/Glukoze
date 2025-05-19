@@ -1,46 +1,33 @@
+// navigation/TabNav.js
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather } from '@expo/vector-icons';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-import HomePage from '../Screens/HomePage';
 import HealthData from '../Screens/HealthData';
 import ConnectionsPage from '../Screens/ConnectionsPage';
 import SettingsPage from '../Screens/SettingsPage';
+import HomeStack from './HomeStack';
+import TabsHeader from './TabsHeader';
 
 const Tab = createBottomTabNavigator();
 
-function TabsHeader({ navigation, routeName }) {
-  const isHome = routeName === 'Home';
-
-  return (
-    <View style={styles.customHeader}>
-      <TouchableOpacity
-        style={styles.leftIcon}
-        onPress={() => {
-          if (isHome) {
-            navigation.navigate('Tutorial');
-          } else {
-            navigation.navigate('Home');
-          }
-        }}
-      >
-        <Feather
-          name={isHome ? 'help-circle' : 'arrow-left'}
-          size={24}
-          color="#fff"
-        />
-      </TouchableOpacity>
-      <Text style={styles.headerTitle}>Glukoze</Text>
-    </View>
-  );
+function ScreenWithHeader(Component) {
+  return function WrappedScreen(props) {
+    return (
+      <View style={{ flex: 1 }}>
+        <TabsHeader />
+        <Component {...props} />
+      </View>
+    );
+  };
 }
 
-export default function TabNavigator() {
+export default function TabNav() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      screenOptions={({ route, navigation }) => ({
+      screenOptions={({ route }) => ({
         tabBarIcon: ({ color }) => {
           const icons = {
             Home: 'home',
@@ -48,25 +35,19 @@ export default function TabNavigator() {
             Upload: 'upload-cloud',
             Settings: 'settings',
           };
-          const iconName = icons[route.name];
-          return iconName ? <Feather name={iconName} size={22} color={color} /> : null;
+          return <Feather name={icons[route.name]} size={22} color={color} />;
         },
         tabBarActiveTintColor: '#4CAF50',
         tabBarInactiveTintColor: '#999',
         tabBarStyle: styles.tabBar,
         tabBarLabelStyle: styles.label,
-        header: () => (
-          <TabsHeader
-            navigation={navigation}
-            routeName={navigation.getState().routes[navigation.getState().index].name}
-          />
-        ),
+        headerShown: false,
       })}
     >
-      <Tab.Screen name="Home" component={HomePage} />
-      <Tab.Screen name="HealthData" component={HealthData} />
-      <Tab.Screen name="Upload" component={ConnectionsPage} />
-      <Tab.Screen name="Settings" component={SettingsPage} />
+      <Tab.Screen name="Home" component={HomeStack} />
+      <Tab.Screen name="HealthData" component={ScreenWithHeader(HealthData)} />
+      <Tab.Screen name="Upload" component={ScreenWithHeader(ConnectionsPage)} />
+      <Tab.Screen name="Settings" component={ScreenWithHeader(SettingsPage)} />
     </Tab.Navigator>
   );
 }
@@ -81,27 +62,5 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 10,
     marginBottom: 3,
-  },
-  customHeader: {
-    backgroundColor: '#4CAF50',
-    height: 80,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 30,
-    zIndex: 1,
-  },
-  leftIcon: {
-    position: 'absolute',
-    left: 15,
-    top: 35,
-  },
-  headerTitle: {
-    position: 'absolute',
-    right: 15,
-    top: 35,
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#fff',
   },
 });
