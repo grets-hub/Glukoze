@@ -1,10 +1,92 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { LineChart, BarChart } from 'react-native-chart-kit';
+import {
+  lastWeekData,
+  lastWeekBarData,
+  lastMonthData,
+  lastMonthBarData,
+  lastYearData,
+  lastYearBarData,
+} from './DummyData/DummyGlucoseDataPreWeeks'; // Import your dummy data
+
+const { width } = Dimensions.get('window');
 
 export default function PreWeeksPage() {
-  return (
-    <View>
-      <Text>This is the previous weeks page</Text>
+  // Helper function to create chart config, re-used for all charts
+  const chartConfig = {
+    backgroundColor: '#ffffff',
+    backgroundGradientFrom: '#ffffff',
+    backgroundGradientTo: '#ffffff',
+    decimalPlaces: 0,
+    color: (opacity = 1) => `rgba(76, 175, 80, ${opacity})`,
+    labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+    propsForDots: {
+      r: '4',
+      strokeWidth: '2',
+      stroke: '#4CAF50',
+    },
+  };
+
+  const renderSection = (title, lineData, barData) => (
+    <View style={styles.sectionContainer} key={title}>
+      <Text style={styles.sectionTitle}>{title}</Text>
+
+      {/* Line Chart */}
+      <LineChart
+        data={lineData}
+        width={width - 40}
+        height={180}
+        chartConfig={chartConfig}
+        bezier
+        style={styles.chartStyle}
+      />
+
+      {/* Bar Chart */}
+      <BarChart
+        data={barData}
+        width={width - 40}
+        height={180}
+        chartConfig={chartConfig}
+        style={styles.chartStyle}
+        fromZero
+        showValuesOnTopOfBars
+      />
     </View>
   );
+
+  return (
+    <ScrollView
+      style={styles.container}
+      showsVerticalScrollIndicator={true}
+      contentContainerStyle={{ paddingBottom: 30 }}
+    >
+      {renderSection('Last Week', lastWeekData, lastWeekBarData)}
+      {renderSection('Last Month', lastMonthData, lastMonthBarData)}
+      {renderSection('Last Year', lastYearData, lastYearBarData)}
+    </ScrollView>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  sectionContainer: {
+    marginVertical: 20,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 12,
+    padding: 15,
+    alignItems: 'center',
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 12,
+  },
+  chartStyle: {
+    borderRadius: 10,
+    marginBottom: 20,
+  },
+});

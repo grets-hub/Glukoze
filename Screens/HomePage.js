@@ -61,10 +61,14 @@ export default function HomePage({ navigation }) {
       {/* Food Box */}
       <View style={styles.sectionBox}>
         <Text style={styles.sectionTitle}>Food</Text>
-        <TouchableOpacity style={styles.sectionButton}>
+        <TouchableOpacity
+          style={styles.sectionButton}
+          onPress={() => navigation.navigate('HealthData')}
+        >
           <Text style={styles.sectionButtonText}>Edit Intake</Text>
         </TouchableOpacity>
       </View>
+
 
       {/* Sensor Time Left */}
       <View style={styles.sensorBox}>
