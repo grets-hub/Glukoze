@@ -1,4 +1,3 @@
-// navigation/TabNav.js
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather } from '@expo/vector-icons';
@@ -35,10 +34,13 @@ export default function TabNav() {
             Upload: 'upload-cloud',
             Settings: 'settings',
           };
-          return <Feather name={icons[route.name]} size={22} color={color} />;
+          return <Feather name={icons[route.name]} size={30} color={color} style={{
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,}} />;
         },
-        tabBarActiveTintColor: '#4CAF50',
-        tabBarInactiveTintColor: '#999',
+        tabBarActiveTintColor: '#212227',
+        tabBarInactiveTintColor: '#212227',
         tabBarStyle: styles.tabBar,
         tabBarLabelStyle: styles.label,
         headerShown: false,
@@ -54,13 +56,14 @@ export default function TabNav() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: '#f8f8f8',
-    height: 60,
+    backgroundColor: '#ACD3D3',
+    height: 70,
     borderTopColor: '#ccc',
     borderTopWidth: 0.5,
   },
   label: {
-    fontSize: 10,
-    marginBottom: 3,
+    fontSize: 15,
+    marginBottom: 1,
+    fontWeight: 'bold',
   },
 });

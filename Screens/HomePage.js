@@ -5,15 +5,16 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const { width } = Dimensions.get('window');
 
-const glucoseReading = 165;
+const glucoseReading = 8.5;
 const glucoseTrend = 'flat';
 const sensorTimeLeft = 48;
 
 const getColorForGlucose = (value) => {
-  if (value < 70 || value > 180) return '#f44336'; // red
-  if (value >= 140 && value <= 180) return '#ffeb3b'; // yellow
-  return '#4CAF50'; // green
-};
+    if (value < 3.0 || value > 12.0) return '#f44336'; // red
+    if (value >= 3.0 && value <= 5.0) return '#F1F5A3'; // yellow
+    if (value >= 8.0 && value <= 12.0) return '#F1F5A3';
+    return '#4CAF50'; // green
+  };
 
 const getTrendIcon = (trend) => {
   switch (trend) {
@@ -35,7 +36,7 @@ export default function HomePage({ navigation }) {
         <Text style={styles.glucoseLabel}>Glucose Level</Text>
         <View style={styles.glucoseRow}>
           <Text style={styles.glucoseValue}>{glucoseReading} mmoL/L</Text>
-          <Feather name={trendIcon} size={28} color="#fff" style={{ marginLeft: 8 }} />
+          <Feather name={trendIcon} size={28} color="#212227" style={{ marginLeft: 8 }} />
         </View>
       </View>
 
@@ -105,18 +106,17 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#F4F6F8',
   },
   glucoseBox: {
-    width: width - 5,
-    padding: 80,
-    borderRadius: 5,
+    width: width - 1,
+    padding: 70,
     alignItems: 'center',
     marginBottom: 20,
   },
   glucoseLabel: {
     fontSize: 24,
-    color: '#fff',
+    color: '#212227',
     marginBottom: 10,
   },
   glucoseRow: {
@@ -126,47 +126,50 @@ const styles = StyleSheet.create({
   glucoseValue: {
     fontSize: 44,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#212227',
   },
   statsButton: {
-    backgroundColor: '#2196F3',
+    backgroundColor: '#65C6CD',
     paddingVertical: 15,
     paddingHorizontal: 135,
     borderRadius: 10,
-    marginBottom: 25,
+    marginBottom: 20,
+    borderColor: '#212227',
+    borderWidth: 2,
   },
   statsButtonText: {
-    color: '#fff',
-    fontSize: 20,
+    color: '#212227',
+    fontSize: 22,
     fontWeight: 'bold',
   },
   sectionBox: {
-    width: width - 10,
-    backgroundColor: '#eee',
-    borderRadius: 12,
+    width: width - 1,
+    backgroundColor: '#AACFFD',
     padding: 20,
-    marginBottom: 15,
+    marginBottom: 14,
   },
   sectionTitle: {
     fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: '#212227',
   },
   sectionButton: {
-    backgroundColor: '#4CAF50',
-    paddingVertical: 15,
+    backgroundColor: '#65C6CD',
+    paddingVertical: 14,
     borderRadius: 8,
     alignItems: 'center',
+    borderColor: '#212227',
+    borderWidth: 2,
   },
   sectionButtonText: {
-    color: '#fff',
-    fontSize: 18,
+    color: '#212227',
+    fontSize: 22,
     fontWeight: 'bold',
   },
   sensorBox: {
-    width: width - 10,
-    backgroundColor: '#eee',
-    borderRadius: 15,
+    width: width - 1,
+    backgroundColor: '#AACFFD',
     padding: 15,
     marginTop: 2,
   },
@@ -174,6 +177,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '500',
     marginBottom: 10,
+    color: '#212227',
   },
   progressBarBackground: {
     height: 14,

@@ -40,8 +40,12 @@ export default function TabsHeader({ routeName: propRouteName}) {
       <TouchableOpacity style={styles.leftIcon} onPress={handlePress}>
         <Feather
           name={isHome ? 'help-circle' : 'arrow-left'}
-          size={24}
-          color="#fff"
+          size={30}
+          color="#212227"
+          style={{
+    textShadowColor: 'rgba(30, 30, 30, 0.91)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,}}
         />
       </TouchableOpacity>
       <Text style={styles.headerTitle}>Glukoze</Text>
@@ -51,13 +55,12 @@ export default function TabsHeader({ routeName: propRouteName}) {
 
 const styles = StyleSheet.create({
   customHeader: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#ACD3D3',
     height: 80,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 30,
-    zIndex: 1,
+    paddingTop: 10,
   },
   leftIcon: {
     position: 'absolute',
@@ -65,8 +68,10 @@ const styles = StyleSheet.create({
     top: 35,
   },
   headerTitle: {
-    fontSize: 22,
+    fontSize: 30,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#212227',
+    marginLeft: 'auto', // Best if combined with marginRight
+    marginRight: 15,
   },
 });

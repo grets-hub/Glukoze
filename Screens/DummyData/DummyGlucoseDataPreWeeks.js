@@ -4,7 +4,7 @@
 export const lastWeekData = {
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
   datasets: [
-    { data: [150, 160, 170, 165, 155, 160, 158] },
+    { data: [4.5, 6.2, 7.8, 10.3, 9.5, 11.7, 8.6] },
   ],
 };
 
@@ -12,7 +12,7 @@ export const lastWeekData = {
 export const lastWeekBarData = {
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
   datasets: [
-    { data: [10, 12, 9, 11, 8, 7, 10] },
+    { data: [2.0, 3.5, 4.1, 3.9, 2.8, 2.4, 3.0] },
   ],
 };
 
@@ -20,7 +20,7 @@ export const lastWeekBarData = {
 export const lastMonthData = {
   labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
   datasets: [
-    { data: [160, 155, 150, 165] },
+    { data: [12.2, 14.1, 16.7, 18.9] },
   ],
 };
 
@@ -28,7 +28,7 @@ export const lastMonthData = {
 export const lastMonthBarData = {
   labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
   datasets: [
-    { data: [12, 10, 14, 11] },
+    { data: [5.5, 7.1, 6.3, 8.2] },
   ],
 };
 
@@ -36,7 +36,7 @@ export const lastMonthBarData = {
 export const lastYearData = {
   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   datasets: [
-    { data: [160, 158, 162, 165, 170, 168, 160, 155, 158, 162, 165, 167] },
+    { data: [5.8, 6.3, 9.1, 10.2, 11.9, 13.5, 12.7, 14.3, 16.4, 17.8, 19.5, 21.3] },
   ],
 };
 
@@ -44,6 +44,6 @@ export const lastYearData = {
 export const lastYearBarData = {
   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   datasets: [
-    { data: [11, 10, 12, 9, 14, 13, 15, 10, 8, 9, 11, 12] },
+    { data: [3.4, 4.6, 5.2, 4.1, 6.3, 5.8, 7.0, 6.5, 5.4, 4.8, 6.1, 5.7] },
   ],
 };

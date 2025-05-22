@@ -1,135 +1,205 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  Dimensions,
-  Alert,
-} from 'react-native';
+import React from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, Image, Alert, Dimensions, ScrollView } from 'react-native';
+import { TourGuideProvider, TourGuideZone, useTourGuideController } from 'react-native-tourguide';
 
 const { width } = Dimensions.get('window');
 
-export default function ConnectionsPage() {
-  const [deviceInfo] = useState({
-    name: 'GlucoPro X200',
-    id: 'GPX200-98A7',
-    status: 'Connected',
-  });
+// Adjust this to match your header height + status bar height
+const HEADER_HEIGHT = 80;
+const STATUS_BAR_HEIGHT = 24;
+const VERTICAL_OFFSET = HEADER_HEIGHT + STATUS_BAR_HEIGHT;
 
-  const handleAction = (action) => {
-    Alert.alert(`${action}`, `${action} action triggered.`);
+function TutorialContent() {
+  const { start } = useTourGuideController();
+
+  const handleWatchTutorial = () => {
+    Alert.alert('Watch Tutorial', 'This would play the tutorial video.');
   };
 
-  const uploadData = () => {
-    // Simulated upload
-    Alert.alert('Upload', 'Your data has been uploaded to the healthcare system.');
+  const handleWalkthrough = () => {
+    setTimeout(() => {
+      start(); // Start after layout settles
+    }, 500);
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {/* Device Info Container */}
-      <View style={styles.deviceContainer}>
-        <Text style={styles.deviceTitle}>Connected Device:</Text>
-        <View style={styles.deviceRow}>
-          <Image
-            source={{ uri: 'https://via.placeholder.com/80' }} // placeholder image
-            style={styles.deviceImage}
-          />
-          <View style={styles.deviceDetails}>
-            <Text style={styles.deviceText}>Name: {deviceInfo.name}</Text>
-            <Text style={styles.deviceText}>ID: {deviceInfo.id}</Text>
-            <Text style={styles.deviceText}>Status: {deviceInfo.status}</Text>
+    <View style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={styles.container}>
+        {/* Step 1: Video Section */}
+        <TourGuideZone
+          zone={1}
+          text="This is the tutorial video where you can learn how to use the app."
+        >
+          <View style={styles.videoContainer}>
+            <Text style={styles.videoTitle}>Tutorial Video</Text>
+            <View style={styles.videoPlaceholder}>
+              <Image
+                source={{
+                  uri: 'https://via.placeholder.com/320x180.png?text=Video+Placeholder',
+                }}
+                style={styles.videoImage}
+              />
+            </View>
           </View>
-        </View>
-      </View>
+        </TourGuideZone>
 
-      {/* Action Buttons */}
-      <View style={styles.buttonsContainer}>
-        {['New Device', 'Share Devices', 'Direct Watch', 'Sync Devices'].map((label) => (
-          <TouchableOpacity
-            key={label}
-            style={styles.actionButton}
-            onPress={() => handleAction(label)}
-          >
-            <Text style={styles.actionButtonText}>{label}</Text>
+        {/* Step 2: Watch Tutorial Button */}
+        <TourGuideZone
+          zone={2}
+          text="Tap here to watch the full tutorial video."
+        >
+          <View>
+            <TouchableOpacity style={styles.button} onPress={handleWatchTutorial}>
+              <Text style={styles.buttonText}>Watch Tutorial</Text>
+            </TouchableOpacity>
+          </View>
+        </TourGuideZone>
+
+        {/* Step 3: Walkthrough Button */}
+        <TourGuideZone
+          zone={3}
+          text="Tap here to restart the walkthrough anytime."
+        >
+          <View>
+            <TouchableOpacity style={styles.walkthroughButton} onPress={handleWalkthrough}>
+              <Text style={styles.walkthroughButtonText}>Walkthrough</Text>
+            </TouchableOpacity>
+          </View>
+        </TourGuideZone>
+      </ScrollView>
+    </View>
+  );
+}
+
+// Custom tooltip component
+function CustomTooltip({ isFirstStep, isLastStep, handleNext, handlePrev, handleStop, currentStep }) {
+  return (
+    <View style={styles.tooltipContainer}>
+      <Text style={styles.tooltipText}>{currentStep.text}</Text>
+
+      <View style={styles.tooltipButtons}>
+        {!isFirstStep && (
+          <TouchableOpacity style={styles.tooltipNavButton} onPress={handlePrev}>
+            <Text style={styles.tooltipNavText}>Back</Text>
           </TouchableOpacity>
-        ))}
-      </View>
+        )}
 
-      {/* Upload Button */}
-      <TouchableOpacity style={styles.uploadButton} onPress={uploadData}>
-        <Text style={styles.uploadButtonText}>Upload Data</Text>
-      </TouchableOpacity>
-    </ScrollView>
+        {!isLastStep ? (
+          <TouchableOpacity style={styles.tooltipNavButton} onPress={handleNext}>
+            <Text style={styles.tooltipNavText}>Next</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={styles.tooltipNavButton} onPress={handleStop}>
+            <Text style={styles.tooltipNavText}>Done</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+    </View>
+  );
+}
+
+export default function TutorialPage() {
+  return (
+    <TourGuideProvider
+      tooltipComponent={CustomTooltip}
+      borderRadius={16}
+      backdropColor="rgba(0, 0, 0, 0.6)"
+      verticalOffset={VERTICAL_OFFSET}
+    >
+      <TutorialContent />
+    </TourGuideProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    backgroundColor: '#F4F6F8',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    flexGrow: 1,
   },
-  deviceContainer: {
-    width: width - 40,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 12,
-    padding: 20,
+  videoContainer: {
+    width: width,
+    backgroundColor: '#AACFFD',
+    padding: 30,
     marginBottom: 30,
   },
-  deviceTitle: {
+  videoTitle: {
     fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 15,
   },
-  deviceRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  deviceImage: {
-    width: 80,
-    height: 80,
-    marginRight: 20,
-    borderRadius: 10,
-    backgroundColor: '#ccc',
-  },
-  deviceDetails: {
-    flex: 1,
-  },
-  deviceText: {
-    fontSize: 16,
-    marginBottom: 5,
-  },
-  buttonsContainer: {
+  videoPlaceholder: {
     width: '100%',
-    marginBottom: 30,
-  },
-  actionButton: {
-    backgroundColor: '#2196F3',
-    paddingVertical: 15,
-    borderRadius: 10,
+    height: 180,
     marginBottom: 15,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 10,
+    overflow: 'hidden',
   },
-  actionButtonText: {
-    color: '#fff',
+  videoImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  button: {
+    backgroundColor: '#65C6CD',
+    paddingVertical: 18,
+    paddingHorizontal: 120,
+    borderRadius: 12,
+    borderColor: '#212227',
+    borderWidth: 2,
+    marginBottom: 24,
+  },
+  buttonText: {
+    color: '#212227',
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
+  walkthroughButton: {
+    backgroundColor: '#65C6CD',
+    paddingVertical: 18,
+    paddingHorizontal: 128,
+    borderRadius: 12,
+    borderColor: '#212227',
+    borderWidth: 2,
+  },
+  walkthroughButtonText: {
+    color: '#212227',
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
+  tooltipContainer: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: 20,
+    maxWidth: width - 40,
+    borderColor: '#212227',
+    borderWidth: 2,
+  },
+  tooltipText: {
     fontSize: 18,
-    fontWeight: 'bold',
+    color: '#212227',
+    fontWeight: '500',
+    marginBottom: 12,
   },
-  uploadButton: {
-    backgroundColor: '#4CAF50',
-    paddingVertical: 20,
-    paddingHorizontal: 60,
-    borderRadius: 15,
-    marginTop: 20,
+  tooltipButtons: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
-  uploadButtonText: {
-    color: '#fff',
-    fontSize: 20,
+  tooltipNavButton: {
+    marginLeft: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    backgroundColor: '#65C6CD',
+    borderRadius: 8,
+    borderColor: '#212227',
+    borderWidth: 1,
+  },
+  tooltipNavText: {
+    fontSize: 16,
     fontWeight: 'bold',
+    color: '#212227',
   },
 });

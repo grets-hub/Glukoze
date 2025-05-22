@@ -18,7 +18,7 @@ export default function PreWeeksPage() {
     backgroundColor: '#ffffff',
     backgroundGradientFrom: '#ffffff',
     backgroundGradientTo: '#ffffff',
-    decimalPlaces: 0,
+    decimalPlaces: 0.0,
     color: (opacity = 1) => `rgba(76, 175, 80, ${opacity})`,
     labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
     propsForDots: {
@@ -35,8 +35,8 @@ export default function PreWeeksPage() {
       {/* Line Chart */}
       <LineChart
         data={lineData}
-        width={width - 40}
-        height={180}
+        width={width - 0}
+        height={260}
         chartConfig={chartConfig}
         bezier
         style={styles.chartStyle}
@@ -45,8 +45,8 @@ export default function PreWeeksPage() {
       {/* Bar Chart */}
       <BarChart
         data={barData}
-        width={width - 40}
-        height={180}
+        width={width - 0}
+        height={260}
         chartConfig={chartConfig}
         style={styles.chartStyle}
         fromZero
@@ -71,11 +71,11 @@ export default function PreWeeksPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F4F6F8',
   },
   sectionContainer: {
     marginVertical: 20,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#AACFFD',
     borderRadius: 12,
     padding: 15,
     alignItems: 'center',

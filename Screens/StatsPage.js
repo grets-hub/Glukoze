@@ -1,12 +1,30 @@
+// StatsPage.js
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { todaysGlucoseData } from './DummyData/DummyGlucoseData';
+import { Feather } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
 
 export default function StatsPage({ navigation }) {
-  const glucoseReading = 165;
+  const glucoseReading = 8.5;
+  const glucoseTrend = 'flat';
+
+  const getColorForGlucose = (value) => {
+    if (value < 3.0 || value > 12.0) return '#f44336'; // red
+    if (value >= 3.0 && value <= 5.0) return '#F1F5A3'; // yellow
+    if (value >= 8.0 && value <= 12.0) return '#F1F5A3';
+    return '#4CAF50'; // green
+  };
+
+  const getTrendIcon = (trend) => {
+    switch (trend) {
+      case 'up': return 'arrow-up';
+      case 'down': return 'arrow-down';
+      default: return 'arrow-right';
+    }
+  };
 
   const chartData = {
     labels: todaysGlucoseData.map((point) => point.hour),
@@ -18,25 +36,31 @@ export default function StatsPage({ navigation }) {
     ],
   };
 
+  const bgColor = getColorForGlucose(glucoseReading);
+  const trendIcon = getTrendIcon(glucoseTrend);
+
   return (
     <View style={styles.container}>
       {/* Glucose Banner */}
-      <View style={styles.glucoseBox}>
+      <View style={[styles.glucoseBox, { backgroundColor: bgColor }]}>
         <Text style={styles.glucoseLabel}>Glucose Level</Text>
-        <Text style={styles.glucoseValue}>{glucoseReading} mmoL/L</Text>
+        <View style={styles.glucoseRow}>
+          <Text style={styles.glucoseValue}>{glucoseReading} mmoL/L</Text>
+          <Feather name={trendIcon} size={28} color="#212227" style={{ marginLeft: 8 }} />
+        </View>
       </View>
 
       {/* Chart Container */}
       <View style={styles.chartContainer}>
         <LineChart
           data={chartData}
-          width={width - 40}
-          height={220}
+          width={width - 0}
+          height={260}
           chartConfig={{
             backgroundColor: '#ffffff',
             backgroundGradientFrom: '#ffffff',
             backgroundGradientTo: '#ffffff',
-            decimalPlaces: 0,
+            decimalPlaces: 0.0,
             color: (opacity = 1) => `rgba(76, 175, 80, ${opacity})`,
             labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
             propsForDots: {
@@ -46,9 +70,6 @@ export default function StatsPage({ navigation }) {
             },
           }}
           bezier
-          style={{
-            borderRadius: 10,
-          }}
         />
         <Text style={styles.chartTitle}>Today's Blood Glucose</Text>
       </View>
@@ -63,52 +84,61 @@ export default function StatsPage({ navigation }) {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
+    padding: 10,
+    paddingTop: 15,
     flex: 1,
-    padding: 20,
-    backgroundColor: '#fff',
+    alignItems: 'center',
+    backgroundColor: '#F4F6F8',
   },
   glucoseBox: {
-    width: '100%',
-    backgroundColor: '#ffeb3b',
-    padding: 30,
-    borderRadius: 10,
+    width: width - 1,
+    padding: 70,
     alignItems: 'center',
     marginBottom: 20,
   },
   glucoseLabel: {
-    fontSize: 22,
-    fontWeight: '600',
-    marginBottom: 8,
+    fontSize: 24,
+    color: '#212227',
+    marginBottom: 10,
+  },
+  glucoseRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   glucoseValue: {
-    fontSize: 42,
+    fontSize: 44,
     fontWeight: 'bold',
+    color: '#212227',
   },
   chartContainer: {
-    backgroundColor: '#f0f0f0',
-    paddingVertical: 20,
-    paddingHorizontal: 10,
-    borderRadius: 10,
-    marginBottom: 30,
+    backgroundColor: '#AACFFD',
+    paddingVertical: 10,
+    paddingHorizontal: 50,
+    marginBottom: 100,
     alignItems: 'center',
   },
   chartTitle: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 12,
+    marginBottom: 15,
+    marginLeft: 10,
+    marginRight: 'auto',
+    color: '#212227',
   },
   statsButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#65C6CD',
     paddingVertical: 15,
+    paddingHorizontal: 80,
     borderRadius: 10,
     alignItems: 'center',
+    borderColor: '#212227',
+    borderWidth: 2,
   },
   statsButtonText: {
-    color: '#fff',
-    fontSize: 18,
+    color: '#212227',
+    fontSize: 22,
     fontWeight: 'bold',
   },
 });
