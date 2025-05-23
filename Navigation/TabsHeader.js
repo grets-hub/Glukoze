@@ -1,9 +1,13 @@
-// components/TabsHeader.js
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
 
+/**
+ * The header takes in the navigation or handling the press for help button
+ * @param {*} param0 
+ * @returns the header on every screen 
+ */
 export default function TabsHeader({ routeName: propRouteName}) {
   const navigation = useNavigation();
   const state = useNavigationState(state => state);

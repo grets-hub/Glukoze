@@ -11,6 +11,12 @@ import TabsHeader from './TabsHeader';
 
 const Tab = createBottomTabNavigator();
 
+/**
+ * This controls the navigation bar, taking in the navigation
+ * and giving out icons for those navigations
+ * @param {*} Component 
+ * @returns the nav bar on every screen
+ */
 function ScreenWithHeader(Component) {
   return function WrappedScreen(props) {
     return (

@@ -1,26 +1,22 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  Modal,
-  Dimensions,
-} from 'react-native';
-import { insulinData } from './DummyData/DummyInsulinData';
+import React, {useState } from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, TextInput, Modal, Dimensions } from 'react-native';
+import {insulinData } from './DummyData/DummyInsulinData';
 
 const { width } = Dimensions.get('window');
 
+/**
+ * Insulin page takes in input data 
+ * @returns functional buttons
+ */
+
 export default function InsulinPage() {
-  // State for modal visibility and current modal type
   const [modalVisible, setModalVisible] = useState(false);
   const [modalType, setModalType] = useState('');
   const [inputValue, setInputValue] = useState('');
 
   const openModal = (type) => {
     setModalType(type);
-    setInputValue(''); // reset input when opening modal
+    setInputValue('');
     setModalVisible(true);
   };
 
@@ -29,8 +25,6 @@ export default function InsulinPage() {
   };
 
   const handleSave = () => {
-    // You can implement saving logic here
-    // For now, just close the modal
     setModalVisible(false);
   };
 
@@ -48,7 +42,6 @@ export default function InsulinPage() {
         </View>
       </View>
 
-      {/* Buttons */}
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.button} onPress={() => openModal('Daily Log')}>
           <Text style={styles.buttonText}>Daily Log</Text>
@@ -64,7 +57,6 @@ export default function InsulinPage() {
         </TouchableOpacity>
       </View>
 
-      {/* Modal for input */}
       <Modal
         visible={modalVisible}
         animationType="slide"
@@ -151,9 +143,9 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   buttonText: {
-    color: '#fff',
     fontSize: 22,
     fontWeight: 'bold',
+    color: '#212227',
   },
   modalOverlay: {
     flex: 1,

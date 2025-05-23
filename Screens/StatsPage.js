@@ -1,21 +1,26 @@
-// StatsPage.js
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
-import { LineChart } from 'react-native-chart-kit';
-import { todaysGlucoseData } from './DummyData/DummyGlucoseData';
-import { Feather } from '@expo/vector-icons';
+import {View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import {LineChart } from 'react-native-chart-kit';
+import {todaysGlucoseData } from './DummyData/DummyGlucoseData';
+import {Feather } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
 
+/**
+ * Numbers are passed in 
+ * depending on the number, specific colour gets returned
+ * @param {*} param0 
+ * @returns graphs from dummydata files
+ */
 export default function StatsPage({ navigation }) {
   const glucoseReading = 8.5;
   const glucoseTrend = 'flat';
 
   const getColorForGlucose = (value) => {
-    if (value < 3.0 || value > 12.0) return '#f44336'; // red
-    if (value >= 3.0 && value <= 5.0) return '#F1F5A3'; // yellow
+    if (value < 3.0 || value > 12.0) return '#f44336';
+    if (value >= 3.0 && value <= 5.0) return '#F1F5A3';
     if (value >= 8.0 && value <= 12.0) return '#F1F5A3';
-    return '#4CAF50'; // green
+    return '#4CAF50';
   };
 
   const getTrendIcon = (trend) => {
@@ -41,7 +46,6 @@ export default function StatsPage({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* Glucose Banner */}
       <View style={[styles.glucoseBox, { backgroundColor: bgColor }]}>
         <Text style={styles.glucoseLabel}>Glucose Level</Text>
         <View style={styles.glucoseRow}>
@@ -50,7 +54,6 @@ export default function StatsPage({ navigation }) {
         </View>
       </View>
 
-      {/* Chart Container */}
       <View style={styles.chartContainer}>
         <LineChart
           data={chartData}
@@ -74,7 +77,6 @@ export default function StatsPage({ navigation }) {
         <Text style={styles.chartTitle}>Today's Blood Glucose</Text>
       </View>
 
-      {/* Button to view past week */}
       <TouchableOpacity
         style={styles.statsButton}
         onPress={() => navigation.navigate('PreWeeksPage')}

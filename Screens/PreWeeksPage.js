@@ -1,19 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, ScrollView } from 'react-native';
-import { LineChart, BarChart } from 'react-native-chart-kit';
-import {
-  lastWeekData,
-  lastWeekBarData,
-  lastMonthData,
-  lastMonthBarData,
-  lastYearData,
-  lastYearBarData,
-} from './DummyData/DummyGlucoseDataPreWeeks'; // Import your dummy data
+import {View, Text, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import {LineChart, BarChart } from 'react-native-chart-kit';
+import {lastWeekData, lastWeekBarData, lastMonthData, lastMonthBarData, lastYearData, lastYearBarData } from './DummyData/DummyGlucoseDataPreWeeks'; // Import your dummy data
 
 const { width } = Dimensions.get('window');
 
+/**
+ * Takes in the graph data from a js file
+ * @returns the rendered graphs
+ */
+
 export default function PreWeeksPage() {
-  // Helper function to create chart config, re-used for all charts
   const chartConfig = {
     backgroundColor: '#ffffff',
     backgroundGradientFrom: '#ffffff',
@@ -32,7 +29,6 @@ export default function PreWeeksPage() {
     <View style={styles.sectionContainer} key={title}>
       <Text style={styles.sectionTitle}>{title}</Text>
 
-      {/* Line Chart */}
       <LineChart
         data={lineData}
         width={width - 0}
@@ -42,7 +38,6 @@ export default function PreWeeksPage() {
         style={styles.chartStyle}
       />
 
-      {/* Bar Chart */}
       <BarChart
         data={barData}
         width={width - 0}

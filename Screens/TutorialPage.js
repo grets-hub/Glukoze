@@ -1,24 +1,14 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Alert,
-  Dimensions,
-  ScrollView,
-  SafeAreaView,
-} from 'react-native';
-import {
-  TourGuideProvider,
-  TourGuideZone,
-  useTourGuideController,
-} from 'react-native-tourguide';
-import { useSafeAreaInsets, SafeAreaProvider } from 'react-native-safe-area-context';
+import {View, Text, StyleSheet, TouchableOpacity, Image, Alert, Dimensions, ScrollView, SafeAreaView } from 'react-native';
+import {TourGuideProvider, TourGuideZone, useTourGuideController } from 'react-native-tourguide';
+import {useSafeAreaInsets, SafeAreaProvider } from 'react-native-safe-area-context';
 
 const { width } = Dimensions.get('window');
 
+/**
+ * Functions are to get the walkthroughs and tutorials on the screen
+ * @returns Functional Buttons, a working walkthrough
+ */
 function TutorialContent() {
   const { start, isTourActive } = useTourGuideController();
 
@@ -32,8 +22,8 @@ function TutorialContent() {
 
   return (
     <ScrollView
-      contentContainerStyle={[styles.container, { paddingTop: 20 }]} // Push content below header
-      scrollEnabled={!isTourActive} // Disable scrolling during walkthrough
+      contentContainerStyle={[styles.container, { paddingTop: 20 }]}
+      scrollEnabled={!isTourActive}
     >
       <TourGuideZone
         zone={1}
@@ -99,7 +89,7 @@ function TutorialPageInner() {
       tooltipComponent={CustomTooltip}
       borderRadius={10}
       backdropColor="rgba(0, 0, 0, 0.6)"
-      verticalOffset={insets.top} // Only safe area inset; content pushed by paddingTop
+      verticalOffset={insets.top}
     >
       <SafeAreaView style={{ flex: 1, backgroundColor: '#F4F6F8' }}>
         <TutorialContent />
@@ -175,7 +165,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
   },
-  // Tooltip styling
   tooltipContainer: {
     backgroundColor: '#FFFFFF',
     borderRadius: 12,

@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Switch,
-  ScrollView,
-  Alert,
-  Modal,
-  FlatList,
-} from 'react-native';
-import { Feather } from '@expo/vector-icons';
-import { useTheme } from '../ProvideTheme';
-import { themes } from '../themes';
+import {View, Text, StyleSheet, TouchableOpacity, Switch, ScrollView, Alert, Modal, FlatList } from 'react-native';
+import {Feather } from '@expo/vector-icons';
+import {useTheme } from '../ProvideTheme';
+import {themes } from '../themes';
 
 const languages = ['English', 'Spanish', 'French', 'German', 'Chinese', 'Hindi'];
 const colorSchemes = Object.keys(themes);
+
+/**
+ * The settings page manages preferences like theme colour, 
+ * language selection and notification toggles
+ * 
+ * @param {object} param0  Props passed into the component.
+ * @returns renders the settings UI and Navigation
+ */
 
 export default function SettingsPage({ navigation }) {
   const { theme, themeName, setThemeName } = useTheme();
@@ -60,7 +58,6 @@ export default function SettingsPage({ navigation }) {
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.background }]}>
-      {/* Profile Section */}
       <View style={[styles.profileContainer, { backgroundColor: theme.secondary, borderColor: theme.border }]}>
         <Feather name="user" size={70} color={theme.text} />
         <View style={styles.profileDetails}>
@@ -83,11 +80,8 @@ export default function SettingsPage({ navigation }) {
       >
         <Text style={[styles.buttonText, { color: theme.text }]}>Change Password</Text>
       </TouchableOpacity>
-
-      {/* Settings Section */}
       <Text style={[styles.sectionTitle, { color: theme.text }]}>Settings</Text>
 
-      {/* Language */}
       <View style={[styles.settingContainer, { backgroundColor: theme.secondary, borderColor: theme.border }]}>
         <Text style={[styles.settingTitle, { color: theme.text }]}>Select Language</Text>
         <TouchableOpacity onPress={() => setLanguageModalVisible(true)}>
@@ -102,7 +96,6 @@ export default function SettingsPage({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* Color Scheme */}
       <View style={[styles.settingContainer, { backgroundColor: theme.secondary, borderColor: theme.border }]}>
         <Text style={[styles.settingTitle, { color: theme.text }]}>Select Colour Scheme</Text>
         <TouchableOpacity onPress={() => setColorModalVisible(true)}>
@@ -117,7 +110,6 @@ export default function SettingsPage({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* Notifications */}
       <View style={[styles.settingContainer, { backgroundColor: theme.secondary, borderColor: theme.border }]}>
         <Text style={[styles.settingTitle, { color: theme.text }]}>Notification Settings</Text>
         {Object.keys(notifications).map((key) => (
@@ -140,7 +132,6 @@ export default function SettingsPage({ navigation }) {
         ))}
       </View>
 
-      {/* Tutorial */}
       <View style={[styles.settingContainer, { backgroundColor: theme.secondary, borderColor: theme.border }]}>
         <Text style={[styles.settingTitle, { color: theme.text }]}>Tutorial</Text>
         <TouchableOpacity onPress={() => navigation.navigate('Home', { screen: 'Tutorial' })}>
@@ -155,7 +146,6 @@ export default function SettingsPage({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* Terms */}
       <View style={[styles.settingContainer, { backgroundColor: theme.secondary, borderColor: theme.border }]}>
         <TouchableOpacity onPress={() => Alert.alert('Terms & Conditions')}>
           <Text
@@ -169,7 +159,6 @@ export default function SettingsPage({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* Privacy */}
       <View style={[styles.settingContainer, { backgroundColor: theme.secondary, borderColor: theme.border }]}>
         <TouchableOpacity onPress={() => Alert.alert('Privacy Settings')}>
           <Text
@@ -183,7 +172,6 @@ export default function SettingsPage({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* Modals */}
       {renderOptionModal(languages, language, setLanguage, languageModalVisible, setLanguageModalVisible)}
       {renderOptionModal(
         colorSchemes,

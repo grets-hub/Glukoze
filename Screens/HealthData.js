@@ -1,18 +1,14 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  Modal,
-  ScrollView,
-  Dimensions,
-} from 'react-native';
-import { initialHealthData } from './DummyData/DummyHealthData';
+import React, {useState } from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, TextInput, Modal, ScrollView, Dimensions } from 'react-native';
+import {initialHealthData } from './DummyData/DummyHealthData';
 
 const { width } = Dimensions.get('window');
 
+/**
+ * HealthData page makes the functional buttons, 
+ * takes the health data from an input and saves
+ * @returns saved data 
+ */
 export default function HealthData() {
   const [healthData, setHealthData] = useState(initialHealthData);
   const [modalVisible, setModalVisible] = useState(false);

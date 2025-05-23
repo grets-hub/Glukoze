@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
-import { Feather } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
+import {View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import {Feather } from '@expo/vector-icons';
+import {LinearGradient } from 'expo-linear-gradient';
 
 const { width } = Dimensions.get('window');
 
@@ -9,11 +9,18 @@ const glucoseReading = 8.5;
 const glucoseTrend = 'flat';
 const sensorTimeLeft = 48;
 
+/**
+ * HomePage displays the glucose level
+ * @param {getColorForGlucose} value 
+ * @returns the colour of the banner based on the numbers 
+ * aswell as all the functional buttons
+ */
+
 const getColorForGlucose = (value) => {
-    if (value < 3.0 || value > 12.0) return '#f44336'; // red
-    if (value >= 3.0 && value <= 5.0) return '#F1F5A3'; // yellow
+    if (value < 3.0 || value > 12.0) return '#f44336';
+    if (value >= 3.0 && value <= 5.0) return '#F1F5A3';
     if (value >= 8.0 && value <= 12.0) return '#F1F5A3';
-    return '#4CAF50'; // green
+    return '#4CAF50';
   };
 
 const getTrendIcon = (trend) => {
@@ -31,7 +38,6 @@ export default function HomePage({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* Glucose Banner */}
       <View style={[styles.glucoseBox, { backgroundColor: bgColor }]}>
         <Text style={styles.glucoseLabel}>Glucose Level</Text>
         <View style={styles.glucoseRow}>
@@ -40,7 +46,6 @@ export default function HomePage({ navigation }) {
         </View>
       </View>
 
-      {/* Go to Stats */}
       <TouchableOpacity
         style={styles.statsButton}
         onPress={() => navigation.navigate('Stats')}
@@ -48,7 +53,6 @@ export default function HomePage({ navigation }) {
         <Text style={styles.statsButtonText}>Go To Stats</Text>
       </TouchableOpacity>
 
-      {/* Insulin Box */}
       <View style={styles.sectionBox}>
         <Text style={styles.sectionTitle}>Insulin</Text>
         <TouchableOpacity
@@ -59,7 +63,6 @@ export default function HomePage({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* Food Box */}
       <View style={styles.sectionBox}>
         <Text style={styles.sectionTitle}>Food</Text>
         <TouchableOpacity
@@ -70,13 +73,10 @@ export default function HomePage({ navigation }) {
         </TouchableOpacity>
       </View>
 
-
-      {/* Sensor Time Left */}
       <View style={styles.sensorBox}>
         <Text style={styles.sectionTitle}>Sensor Time Left:</Text>
         <Text style={styles.sensorTimeText}>{sensorTimeLeft} hours</Text>
 
-        {/* Marker above bar */}
         <View style={styles.markerLineContainer}>
           <View
             style={[

@@ -1,4 +1,3 @@
-// navigation/HomeStack.js
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -13,7 +12,11 @@ import { View } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
-// Proper HOC that passes props to wrapped component
+/**
+ * Takes the navigation stack and ceates another stack navigation that doesnt use root navigation. 
+ * @param {object} Component 
+ * @returns the component to different screens
+ */
 function WithHeader(Component) {
   return function WrappedComponent(props) {
     return (
